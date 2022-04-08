@@ -6,6 +6,7 @@
 //
 
 #import "AppDelegate.h"
+#import "Network.h"
 
 @interface AppDelegate ()
 
@@ -16,6 +17,15 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+
+    // Set app-wide shared cache (first number is megabyte value)
+    // these should be plenty for the 6 movie and corresponding data
+    NSURLCache *cache = [[NSURLCache alloc]
+                            initWithMemoryCapacity:60 * 1024 * 1024
+                                      diskCapacity:200 * 1024 * 1024
+                                      directoryURL:Network.cacheURL];
+    [NSURLCache setSharedURLCache: cache];
+
     return YES;
 }
 
