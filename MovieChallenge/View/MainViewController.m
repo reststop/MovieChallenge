@@ -41,9 +41,26 @@
                 [self.movieTableView reloadData];
             });
         }
+        else {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self showAlert:@"Data Not Available"];
+            });
+        }
     }];
 }
 
+
+- (void)showAlert:(NSString *)message {
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Alert"
+                                   message:message
+                                   preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction* defaultAction = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault
+       handler:^(UIAlertAction * action) {}];
+
+    [alert addAction:defaultAction];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 - (void)setProperWidths {
     self.movieTableView.frame = CGRectMake(self.movieTableView.frame.origin.x,
